@@ -1,21 +1,18 @@
-package com.devsuperior.DSMovie.entities;
+package com.devsuperior.dsmovie.entities;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
-import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
+
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Embeddable
-public class ScorePK implements Serializable {
-    @Serial
+public class ScorePK implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    private Movie movie;
+    private com.devsuperior.dsmovie.entities.Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,11 +21,11 @@ public class ScorePK implements Serializable {
     public ScorePK() {
     }
 
-    public Movie getMovie() {
+    public com.devsuperior.dsmovie.entities.Movie getMovie() {
         return movie;
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(com.devsuperior.dsmovie.entities.Movie movie) {
         this.movie = movie;
     }
 
@@ -40,15 +37,4 @@ public class ScorePK implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ScorePK scorePK)) return false;
-        return Objects.equals(getMovie(), scorePK.getMovie()) && Objects.equals(getUser(), scorePK.getUser());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getMovie(), getUser());
-    }
 }

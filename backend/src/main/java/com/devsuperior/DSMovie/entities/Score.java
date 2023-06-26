@@ -1,10 +1,8 @@
-package com.devsuperior.DSMovie.entities;
+package com.devsuperior.dsmovie.entities;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
-import java.util.Objects;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_score")
@@ -12,12 +10,13 @@ public class Score {
 
     @EmbeddedId
     private ScorePK id = new ScorePK();
+
     private Double value;
 
     public Score() {
     }
 
-    public void setMovie(Movie movie) {
+    public void setMovie(com.devsuperior.dsmovie.entities.Movie movie) {
         id.setMovie(movie);
     }
 
@@ -41,15 +40,5 @@ public class Score {
         this.value = value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Score score)) return false;
-        return Objects.equals(getId(), score.getId());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
 }

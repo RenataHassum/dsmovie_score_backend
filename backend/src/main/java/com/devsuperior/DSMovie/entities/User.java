@@ -1,8 +1,10 @@
-package com.devsuperior.DSMovie.entities;
+package com.devsuperior.dsmovie.entities;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
@@ -13,7 +15,8 @@ public class User {
     private Long id;
     private String email;
 
-    public User() {}
+    public User() {
+    }
 
     public User(Long id, String email) {
         this.id = id;
@@ -34,17 +37,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }

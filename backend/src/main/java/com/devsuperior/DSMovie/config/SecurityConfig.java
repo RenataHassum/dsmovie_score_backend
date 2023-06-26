@@ -1,4 +1,4 @@
-package com.devsuperior.DSMovie.config;
+package com.devsuperior.dsmovie.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
