@@ -13,6 +13,8 @@ import com.devsuperior.dsmovie.repositories.MovieRepository;
 import com.devsuperior.dsmovie.repositories.ScoreRepository;
 import com.devsuperior.dsmovie.repositories.UserRepository;
 
+import java.util.Locale;
+
 @Service
 public class ScoreService {
 
@@ -50,8 +52,9 @@ public class ScoreService {
         }
 
         double avg = sum / movie.getScores().size();
+        Double formattedAvg = Double.parseDouble(String.format(Locale.US, "%.2f", avg));
 
-        movie.setScore(avg);
+        movie.setScore(formattedAvg);
         movie.setCount(movie.getScores().size());
 
         movie = movieRepository.save(movie);
