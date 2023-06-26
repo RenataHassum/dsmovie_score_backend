@@ -1,13 +1,28 @@
 package com.devsuperior.DSMovie.entities;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ScorePK {
+@Embeddable
+public class ScorePK implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public ScorePK() {}
+    public ScorePK() {
+    }
 
     public Movie getMovie() {
         return movie;
