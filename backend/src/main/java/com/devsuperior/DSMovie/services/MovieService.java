@@ -29,7 +29,7 @@ public class MovieService {
     public Page<MovieDTO> findAll(Pageable pageable) {
         Page<Movie> result = repository.findAll(pageable);
         Page<MovieDTO> page = result.map(x -> new MovieDTO(x)
-                .add(linkTo(methodOn(MovieController.class).findAll(null)).withSelfRel()) //hateoas
+                .add(linkTo(methodOn(MovieController.class).findAll(null)).withSelfRel())
                 .add(linkTo(methodOn(MovieController.class).findById(x.getId())).withRel("Get movie by id"))); //hateoas
         return page;
     }
@@ -38,14 +38,20 @@ public class MovieService {
     public MovieDTO findById(Long id) {
         Movie result = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
-        return new MovieDTO(result);
+        MovieDTO dto = new MovieDTO(result)
+                .add(linkTo(methodOn(MovieController.class).findById(result.getId())).withSelfRel())
+                .add(linkTo(methodOn(MovieController.class).findAll(null)).withRel("All movies"))
+                .add(linkTo(methodOn(MovieController.class).update(id, null)).withRel("Update movie"))
+                .add(linkTo(methodOn(MovieController.class).delete(id)).withRel("Delete movie")); //hateoas
+        return dto;
     }
 
     @Transactional
     public MovieDTO insert(MovieDTO dto) {
         Movie entity = dto.toEntity();
         entity = repository.save(entity);
-        return new MovieDTO(entity);
+        return new MovieDTO(entity)
+                .add(linkTo(methodOn(MovieController.class).findById(entity.getId())).withRel("Get movie by id")); //hateoas
     }
 
     @Transactional
@@ -54,7 +60,8 @@ public class MovieService {
             Movie entity = repository.getReferenceById(id);
             copyDtoToEntity(dto, entity);
             entity = repository.save(entity);
-            return new MovieDTO(entity);
+            return new MovieDTO(entity)
+                    .add(linkTo(methodOn(MovieController.class).findById(entity.getId())).withRel("Get movie by id")); //hateoas;
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
         }
@@ -63,7 +70,7 @@ public class MovieService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         try {
-            repository.deleteById(id);
+            repository.deleteById(id); // não retorna hateoas pois é void
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Recurso não encontrado");
         } catch (DataIntegrityViolationException e) {
