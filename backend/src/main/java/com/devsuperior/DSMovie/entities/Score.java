@@ -1,8 +1,9 @@
 package com.devsuperior.dsmovie.entities;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_score")
@@ -11,12 +12,13 @@ public class Score {
     @EmbeddedId
     private ScorePK id = new ScorePK();
 
+    @Column(name = "score_value")
     private Double value;
 
     public Score() {
     }
 
-    public void setMovie(com.devsuperior.dsmovie.entities.Movie movie) {
+    public void setMovie(Movie movie) {
         id.setMovie(movie);
     }
 
@@ -39,6 +41,4 @@ public class Score {
     public void setValue(Double value) {
         this.value = value;
     }
-
-
 }

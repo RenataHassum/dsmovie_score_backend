@@ -1,5 +1,6 @@
 package com.devsuperior.dsmovie.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,8 @@ public class ScoreController {
     private ScoreService service;
 
     @PutMapping
-    public MovieDTO saveScore(@RequestBody ScoreDTO dto){
-        return service.saveScore(dto);
+    public MovieDTO saveScore(@Valid @RequestBody ScoreDTO dto) {
+        MovieDTO movieDTO = service.saveScore(dto);
+        return movieDTO;
     }
 }
