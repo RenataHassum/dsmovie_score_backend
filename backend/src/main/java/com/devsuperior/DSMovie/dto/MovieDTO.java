@@ -1,5 +1,6 @@
 package com.devsuperior.dsmovie.dto;
 
+import org.hibernate.boot.jaxb.hbm.internal.RepresentationModeConverter;
 import org.hibernate.validator.constraints.URL;
 
 import com.devsuperior.dsmovie.entities.Movie;
@@ -7,8 +8,9 @@ import com.devsuperior.dsmovie.entities.Movie;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import org.springframework.hateoas.RepresentationModel;
 
-public class MovieDTO {
+public class MovieDTO extends RepresentationModel<MovieDTO> { //hateoas
 
     private Long id;
 
